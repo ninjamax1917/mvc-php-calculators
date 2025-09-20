@@ -1,0 +1,12 @@
+{
+    "name": "user/calculators",
+    "autoload": {
+        "psr-4": {
+            "User\\Calculators\\": "src/",
+            "User\\Calculators\\App\\": "app/"
+        }
+    },
+    "require": {
+        "symfony/var-dumper": "^7.3"
+    }
+}
