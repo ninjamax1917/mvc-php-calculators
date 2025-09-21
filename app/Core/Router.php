@@ -18,8 +18,8 @@ class Router
         $uri = trim($uri, '/');
 
         if (isset($this->routes[$uri])) {
-            $controller = $this->routes[$uri]['controller'];
-            $action = $this->routes[$uri]['action'];
+            [$controller, $action] = explode('@', $this->routes[$uri]);
+            $controller = ucfirst($controller) . 'Controller';
             $controllerClass = 'App\\Controllers\\' . $controller;
             $params = [];
         } else {

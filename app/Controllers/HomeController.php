@@ -2,20 +2,20 @@
 
 namespace App\Controllers;
 
-class HomeController
+class HomeController extends BaseController
 {
     public function index()
     {
-        echo "Главная страница";
+        $this->render('home');
     }
 
     public function about()
     {
-        echo "О проекте";
+        $this->render('about');
     }
 
     public function contacts()
     {
-        echo "Контакты";
+        $this->render('contacts');
     }
 }
