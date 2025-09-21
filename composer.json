@@ -2,8 +2,7 @@
     "name": "user/calculators",
     "autoload": {
         "psr-4": {
-            "User\\Calculators\\": "src/",
-            "User\\Calculators\\App\\": "app/"
+            "App\\": "app/"
         }
     },
     "require": {

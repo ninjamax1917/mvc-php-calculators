@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'user/calculators',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '55547e02032715b1e3bcaf53d965e59f7654a014',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'user/calculators' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '55547e02032715b1e3bcaf53d965e59f7654a014',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
