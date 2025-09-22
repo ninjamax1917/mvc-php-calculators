@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class UserController extends BaseController
 {
-    protected string $usersFile = __DIR__ . '/../users.json';
+    protected string $usersFile = __DIR__ . '/../../storage/users.json';
 
     public function showRegister()
     {
