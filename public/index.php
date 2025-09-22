@@ -1,14 +1,11 @@
 <?php
 
 define('BASE_PATH', dirname(__DIR__));
-
 require BASE_PATH . '/vendor/autoload.php';
 
-use App\Core\Router;
+use App\Core\Application;
 
 $routes = require BASE_PATH . '/routes.php';
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-$router = new Router($routes);
-$router->dispatch($uri);
+$app = new Application($routes);
+$app->run();
