@@ -2,9 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Core\Database;
+
 class UserController extends BaseController
 {
-    protected string $usersFile = __DIR__ . '/../../storage/users.json';
+    protected Database $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
 
     public function showRegister()
     {
@@ -23,19 +30,19 @@ class UserController extends BaseController
             exit;
         }
 
-        // Загрузка пользователей
-        $users = file_exists($this->usersFile) ? json_decode(file_get_contents($this->usersFile), true) : [];
-
         // Проверка уникальности
-        if (isset($users[$username])) {
+        $stmt = $this->db->getPdo()->prepare('SELECT id FROM users WHERE username = ?');
+        $stmt->execute([$username]);
+        if ($stmt->fetch()) {
             $_SESSION['register_error'] = 'Пользователь уже существует!';
             header('Location: /register');
             exit;
         }
 
         // Сохраняем пользователя
-        $users[$username] = password_hash($password, PASSWORD_DEFAULT);
-        file_put_contents($this->usersFile, json_encode($users));
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->db->getPdo()->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
+        $stmt->execute([$username, $hash]);
 
         header('Location: /login');
         exit;
@@ -51,11 +58,13 @@ class UserController extends BaseController
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
 
-        // Загрузка пользователей
-        $users = file_exists($this->usersFile) ? json_decode(file_get_contents($this->usersFile), true) : [];
+        // Получаем пользователя из БД
+        $stmt = $this->db->getPdo()->prepare('SELECT password FROM users WHERE username = ?');
+        $stmt->execute([$username]);
+        $user = $stmt->fetch();
 
         // Проверка пользователя и пароля
-        if (!isset($users[$username]) || !password_verify($password, $users[$username])) {
+        if (!$user || !password_verify($password, $user['password'])) {
             $_SESSION['login_error'] = 'Неверный логин или пароль!';
             header('Location: /login');
             exit;
